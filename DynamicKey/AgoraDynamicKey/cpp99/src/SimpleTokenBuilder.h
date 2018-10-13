@@ -96,7 +96,7 @@ namespace agora {
 
         bool SimpleTokenBuilder::initPrivileges(Role role)
         {
-            auto it = g_rolePrivileges.find(role);
+            std::map<int, AccessToken::PrivilegeMessageMap>::const_iterator it = g_rolePrivileges.find(role);
             if (it == g_rolePrivileges.end()) {
                 return false;
             }
