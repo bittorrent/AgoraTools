@@ -38,13 +38,44 @@ namespace agora {
 
 // implementation
 
-        static const AccessToken::PrivilegeMessageMap attendeePrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kPublishAudioStream, 0}, {AccessToken::kPublishVideoStream, 0}, {AccessToken::kPublishDataStream, 0}};
-        static const AccessToken::PrivilegeMessageMap publisherPrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kPublishAudioStream, 0}, {AccessToken::kPublishVideoStream, 0}, {AccessToken::kPublishDataStream, 0}, {AccessToken::kPublishAudiocdn, 0}, {AccessToken::kPublishVideoCdn, 0}, {AccessToken::kInvitePublishAudioStream, 0}, {AccessToken::kInvitePublishVideoStream, 0}, {AccessToken::kInvitePublishDataStream, 0} };
-        static const AccessToken::PrivilegeMessageMap subscriberPrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kRequestPublishAudioStream, 0}, {AccessToken::kRequestPublishVideoStream, 0}, {AccessToken::kRequestPublishDataStream, 0}};
-        static const AccessToken::PrivilegeMessageMap adminPrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kPublishAudioStream, 0}, {AccessToken::kPublishVideoStream, 0}, {AccessToken::kPublishDataStream, 0}, {AccessToken::kAdministrateChannel, 0}};
+        // static AccessToken::PrivilegeMessageMap attendeePrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kPublishAudioStream, 0}, {AccessToken::kPublishVideoStream, 0}, {AccessToken::kPublishDataStream, 0}};
+        // static const AccessToken::PrivilegeMessageMap publisherPrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kPublishAudioStream, 0}, {AccessToken::kPublishVideoStream, 0}, {AccessToken::kPublishDataStream, 0}, {AccessToken::kPublishAudiocdn, 0}, {AccessToken::kPublishVideoCdn, 0}, {AccessToken::kInvitePublishAudioStream, 0}, {AccessToken::kInvitePublishVideoStream, 0}, {AccessToken::kInvitePublishDataStream, 0} };
+        // static const AccessToken::PrivilegeMessageMap subscriberPrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kRequestPublishAudioStream, 0}, {AccessToken::kRequestPublishVideoStream, 0}, {AccessToken::kRequestPublishDataStream, 0}};
+        // static const AccessToken::PrivilegeMessageMap adminPrivileges = {{AccessToken::kJoinChannel, 0}, {AccessToken::kPublishAudioStream, 0}, {AccessToken::kPublishVideoStream, 0}, {AccessToken::kPublishDataStream, 0}, {AccessToken::kAdministrateChannel, 0}};
 
+        static std::map<int, AccessToken::PrivilegeMessageMap> CreateRole() {
+          std::map<int, AccessToken::PrivilegeMessageMap> rolePrivileges;
+          AccessToken::PrivilegeMessageMap attendee, publisher, subscriber, admin;
+          attendee[AccessToken::kJoinChannel] = 0;
+          attendee[AccessToken::kPublishAudioStream] = 0;
+          attendee[AccessToken::kPublishVideoStream] = 0;
+          attendee[AccessToken::kPublishDataStream] = 0;
+          subscriber[AccessToken::kJoinChannel] = 0;
+          subscriber[AccessToken::kRequestPublishAudioStream] = 0;
+          subscriber[AccessToken::kRequestPublishVideoStream] = 0;
+          subscriber[AccessToken::kRequestPublishDataStream] = 0;
+          publisher[AccessToken::kJoinChannel] = 0;
+          publisher[AccessToken::kPublishAudioStream] = 0;
+          publisher[AccessToken::kPublishVideoStream] = 0;
+          publisher[AccessToken::kPublishDataStream] = 0;
+          publisher[AccessToken::kPublishAudiocdn] = 0;
+          publisher[AccessToken::kPublishVideoCdn] = 0;
+          publisher[AccessToken::kInvitePublishAudioStream] = 0;
+          publisher[AccessToken::kInvitePublishVideoStream] = 0;
+          publisher[AccessToken::kInvitePublishDataStream] = 0;
+          admin[AccessToken::kJoinChannel] = 0;
+          admin[AccessToken::kPublishAudioStream] = 0;
+          admin[AccessToken::kPublishVideoStream] = 0;
+          admin[AccessToken::kPublishDataStream] = 0;
+          admin[AccessToken::kAdministrateChannel] = 0;
+          rolePrivileges[Role_Attendee] = attendee;
+          rolePrivileges[Role_Publisher] = publisher;
+          rolePrivileges[Role_Subscriber] = subscriber;
+          rolePrivileges[Role_Admin] = admin;
+          return rolePrivileges;
+        }
 
-        static const std::map<int, AccessToken::PrivilegeMessageMap> g_rolePrivileges = {{Role_Attendee, attendeePrivileges}, {Role_Publisher, publisherPrivileges}, {Role_Subscriber, subscriberPrivileges}, {Role_Admin, adminPrivileges}};
+        static const std::map<int, AccessToken::PrivilegeMessageMap> g_rolePrivileges = CreateRole();
 
         SimpleTokenBuilder::SimpleTokenBuilder()
         : m_tokenCreator()
